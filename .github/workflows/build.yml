@@ -1,0 +1,44 @@
+name: Build Friday APK
+on: [push, workflow_dispatch]
+
+jobs:
+  build:
+    runs-on: ubuntu-latest
+    steps:
+      - name: Checkout Repository
+        uses: actions/checkout@v4
+
+      - name: Setup Node.js
+        uses: actions/setup-node@v4
+        with:
+          node-version: 18
+
+      - name: Setup Java JDK
+        uses: actions/setup-java@v3
+        with:
+          distribution: 'temurin'
+          java-version: '17'
+
+      - name: Setup Android SDK
+        uses: android-actions/setup-android@v3
+
+      - name: Install NPM Dependencies
+        run: npm install
+
+      - name: Generate Android Native Project
+        run: npx expo prebuild --platform android --clean
+
+      - name: Inject Custom Native Kotlin Files
+        run: node patch-android.js
+
+      - name: Compile Debug APK with Gradle
+        run: |
+          cd android
+          chmod +x ./gradlew
+          ./gradlew assembleDebug --no-daemon
+
+      - name: Upload Finished APK
+        uses: actions/upload-artifact@v4
+        with:
+          name: Friday-Assistant-APK
+          path: android/app/build/outputs/apk/debug/*.apk
