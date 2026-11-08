@@ -1,0 +1,24 @@
+{
+  "expo": {
+    "name": "Friday",
+    "slug": "friday-assistant",
+    "version": "1.0.0",
+    "orientation": "portrait",
+    "android": {
+      "package": "com.friday.assistant",
+      "permissions": [
+        "RECORD_AUDIO",
+        "FOREGROUND_SERVICE",
+        "FOREGROUND_SERVICE_MICROPHONE",
+        "WAKE_LOCK",
+        "SYSTEM_ALERT_WINDOW",
+        "CAMERA",
+        "READ_CONTACTS",
+        "CALL_PHONE",
+        "READ_MEDIA_AUDIO",
+        "RECEIVE_BOOT_COMPLETED",
+        "REQUEST_IGNORE_BATTERY_OPTIMIZATIONS"
+      ]
+    }
+  }
+}
